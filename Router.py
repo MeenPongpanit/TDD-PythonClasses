@@ -22,6 +22,12 @@ class Router():
         this_interface = self.interfaces.get(short_name)
         this_interface.connected_interface = target_interface
         target_interface.connected_interface = this_interface
+    
+    def assign_ip_int(self, short_name, ip_address, subnet_mask):
+        """assign ip address to specific interface"""
+        interface = self.interfaces.get(short_name)
+        interface.ip_address = ip_address
+        interface.subnet_mask = subnet_mask
 
 class Interface():
     def __init__(self, attached_router, port_type, port_number):
@@ -29,4 +35,6 @@ class Interface():
         self.port_type = port_type
         self.port_number = port_number
         self.connected_interface = None
-        
+        self.ip_address = None
+        self.subnet_mask = None        
+    
