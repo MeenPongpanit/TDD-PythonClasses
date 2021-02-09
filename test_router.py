@@ -19,10 +19,16 @@ def test_fullinfo_router():
     assert router1.model == model, 'test failed'
     assert router1.vendor == vendor, 'test failed'
 
+def test_add_interface():
+    router1 = Router.Router('Test name', 'Test Model', 'Test vendor')
+    router1.add_interface('Gigabit Ethernet', '0/0')
+    assert router1.interfaces.get('G0/0', False), 'test failed'
+
 test_list = [
     test_create_router,
     test_named_router,
-    test_fullinfo_router
+    test_fullinfo_router,
+    test_add_interface
 ]
 
 for test in test_list:
