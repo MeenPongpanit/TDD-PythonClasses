@@ -45,6 +45,11 @@ def test_assign_ip_int():
     assert router1.interfaces.get('G0/0').ip_address == '172.168.1.1', 'test failed'
     assert router1.interfaces.get('G0/0').subnet_mask == '255.255.255.0', 'test failed'
 
+def test_stringify_router():
+    router1 = Router.Router('Test name 1', 'Test Model 1', 'Test vendor 1')
+    router1_string = "Router Name:%s\nModel:%s\nVendor:%s\nThis Router has no interface."
+    assert str(router1) == router1_string, 'test failed'
+
 
 test_list = [
     test_create_router,
@@ -53,7 +58,8 @@ test_list = [
     test_add_interface,
     test_view_interface_router,
     test_connect_interface,
-    test_assign_ip_int
+    test_assign_ip_int,
+    test_stringify_router
 ]
 
 for test in test_list:
