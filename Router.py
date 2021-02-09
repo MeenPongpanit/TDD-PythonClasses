@@ -28,13 +28,28 @@ class Router():
         interface = self.interfaces.get(short_name)
         interface.ip_address = ip_address
         interface.subnet_mask = subnet_mask
+    
+    def __str__(self):
+        """return string that shown all informations of router"""
+        router_txt = "Router Name:%s\nModel:%s\nVendor:%s\n"%(self.name, self.model, self.vendor)
+        interfaces_txt = '\n'.join(str(interface) for interface in self.interfaces.values())
+        if interfaces_txt:
+            router_txt += "Interfaces:\tType\t\t\tPortNum\t\tIP\t\tMask\n" + interfaces_txt
+        else:
+            router_txt+= "This Router has no interface."
+        return  router_txt
 
 class Interface():
     def __init__(self, attached_router, port_type, port_number):
+        """create interface object with specific values"""
         self.attached_router = attached_router
         self.port_type = port_type
         self.port_number = port_number
         self.connected_interface = None
         self.ip_address = None
-        self.subnet_mask = None        
-    
+        self.subnet_mask = None
+
+    def __str__(self):
+        """return string that show all infomations of interface"""
+        
+        return ("\t\t%s\t%s\t\t%s\t%s"%(self.port_type, self.port_number, self.ip_address, self.subnet_mask)).replace("None", "not assign")

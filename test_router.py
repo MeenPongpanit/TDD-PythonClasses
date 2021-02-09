@@ -47,8 +47,26 @@ def test_assign_ip_int():
 
 def test_stringify_router():
     router1 = Router.Router('Test name 1', 'Test Model 1', 'Test vendor 1')
-    router1_string = "Router Name:%s\nModel:%s\nVendor:%s\nThis Router has no interface."
+    router1_string = "Router Name:%s\nModel:%s\nVendor:%s\nThis Router has no interface."%('Test name 1', 'Test Model 1', 'Test vendor 1')
     assert str(router1) == router1_string, 'test failed'
+
+def test_stringify_router_with_interfaces():
+    router1 = Router.Router('Test name 1', 'Test Model 1', 'Test vendor 1')
+    router1_string = "Router Name:%s\nModel:%s\nVendor:%s\n"%('Test name 1', 'Test Model 1', 'Test vendor 1')
+    router1.add_interface('Gigabit Ethernet', '0/0')
+    router1.add_interface('Gigabit Ethernet', '0/1')
+    router1.add_interface('Gigabit Ethernet', '1/0')
+    router1.assign_ip_int('G0/0', '172.168.1.1', '255.255.255.0')
+    router1_string += "Interfaces:\tType\t\t\tPortNum\t\tIP\t\tMask\n"
+    router1_string += "\t\tGigabit Ethernet\t0/0\t\t172.168.1.1\t255.255.255.0\n"
+    router1_string += "\t\tGigabit Ethernet\t0/1\t\tnot assign\tnot assign\n"
+    router1_string += "\t\tGigabit Ethernet\t1/0\t\tnot assign\tnot assign"
+
+    print(router1)
+
+    assert router1_string == str(router1), 'test failed'
+
+
 
 
 test_list = [
@@ -59,7 +77,8 @@ test_list = [
     test_view_interface_router,
     test_connect_interface,
     test_assign_ip_int,
-    test_stringify_router
+    test_stringify_router,
+    test_stringify_router_with_interfaces
 ]
 
 for test in test_list:
