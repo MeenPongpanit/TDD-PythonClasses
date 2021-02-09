@@ -19,7 +19,9 @@ class Router():
 
     def connect_interface(self, short_name, target_interface):
         """connect interface with another one"""
-        self.interfaces.get(short_name).connected_interface = target_interface
+        this_interface = self.interfaces.get(short_name)
+        this_interface.connected_interface = target_interface
+        target_interface.connected_interface = this_interface
 
 class Interface():
     def __init__(self, attached_router, port_type, port_number):

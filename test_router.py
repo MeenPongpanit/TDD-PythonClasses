@@ -35,8 +35,8 @@ def test_connect_interface():
     router1.add_interface('Gigabit Ethernet', '0/0')
     router2.add_interface('Gigabit Ethernet', '0/1')
     router1.connect_interface('G0/0', router2.interfaces.get('G0/1'))
-    assert router1.interfaces.get('G0/0').connected_interface.attached_router.name == 'Test name 2', 'test failed'
-
+    assert router1.interfaces.get('G0/0').connected_interface.attached_router == router2, 'test failed'
+    assert router2.interfaces.get('G0/1').connected_interface.attached_router == router1, 'test failed'
 
 test_list = [
     test_create_router,
