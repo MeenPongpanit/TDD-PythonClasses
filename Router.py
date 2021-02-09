@@ -17,8 +17,14 @@ class Router():
         else:
             self.interfaces.update({short_name:interface})
 
+    def connect_interface(self, short_name, target_interface):
+        """connect interface with another one"""
+        self.interfaces.get(short_name).connected_interface = target_interface
+
 class Interface():
     def __init__(self, attached_router, port_type, port_number):
         self.attached_router = attached_router
         self.port_type = port_type
         self.port_number = port_number
+        self.connected_interface = None
+        
