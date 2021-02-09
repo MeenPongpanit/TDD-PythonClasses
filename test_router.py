@@ -38,13 +38,22 @@ def test_connect_interface():
     assert router1.interfaces.get('G0/0').connected_interface.attached_router == router2, 'test failed'
     assert router2.interfaces.get('G0/1').connected_interface.attached_router == router1, 'test failed'
 
+def test_assign_ip_int():
+    router1 = Router.Router('Test name 1', 'Test Model 1', 'Test vendor 1')
+    router1.add_interface('Gigabit Ethernet', '0/0')
+    router1.assign_ip_int('G0/0', '172.168.1.1', '255.255.255.0')
+    assert router1.interfaces.get('G0/0').ip_address == '172.168.1.1', 'test failed'
+    assert router1.interfaces.get('G0/0').subnet_mask == '255.255.255.0', 'test failed'
+
+
 test_list = [
     test_create_router,
     test_named_router,
     test_fullinfo_router,
     test_add_interface,
     test_view_interface_router,
-    test_connect_interface
+    test_connect_interface,
+    test_assign_ip_int
 ]
 
 for test in test_list:
